@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +29,17 @@ public class WorkFlow {
 	
 	@Column(name="updated_at",nullable=false,updatable = false)
 	private LocalDateTime updatedAt;
+
+	@ManyToOne
+	private Task task;
+	
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
 
 	public int getWorkflowId() {
 		return workflowId;
