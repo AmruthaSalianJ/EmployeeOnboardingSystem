@@ -25,7 +25,7 @@ public class Task {
 	private int task_id;
 	
 	
-	//foreign keys
+	//foreign key
 	@OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<WorkFlow> workFlow = new ArrayList<>();
 	
