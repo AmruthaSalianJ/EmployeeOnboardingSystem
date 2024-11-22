@@ -1,0 +1,33 @@
+use EMPLOYEE;
+
+//To Create Role Table with role_id as Primary Key
+
+CREATE TABLE Roles ( role_id INT AUTO_INCREMENT PRIMARY KEY, 
+role_name VARCHAR(255) NOT NULL, 
+permissions TEXT );
+
+//To create User Table with role_id from Role table as foreign Key and user_id as Primary Key
+
+CREATE TABLE Users ( user_id INT AUTO_INCREMENT PRIMARY KEY, 
+username VARCHAR(255) NOT NULL, password_hash VARCHAR(255) NOT NULL,
+ email VARCHAR(255) NOT NULL, role_id INT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+ON UPDATE CURRENT_TIMESTAMP, FOREIGN KEY (role_id) REFERENCES Roles(role_id));
+
+//To create Documents Table with document_id as Primary Key
+
+CREATE TABLE Documents ( document_id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, 
+document_name VARCHAR(255) NOT NULL, document_path VARCHAR(255) NOT NULL, 
+uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (user_id) REFERENCES Users(user_id) );
+
+//To create Notifications Table with notification_id as Primary Key and user_id from User table as foreign key
+
+CREATE TABLE Notifications ( notification_id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, 
+message TEXT NOT NULL, is_read BOOLEAN DEFAULT FALSE, 
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (user_id) REFERENCES Users(user_id) );
+
+//To create Workflows Table with workflow_id as Primary Key 
+
+CREATE TABLE Workflows ( workflow_id INT AUTO_INCREMENT PRIMARY KEY,
+ workflow_name VARCHAR(255) NOT NULL, description TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP );
