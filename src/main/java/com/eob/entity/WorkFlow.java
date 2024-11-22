@@ -30,6 +30,7 @@ public class WorkFlow {
 	@Column(name="updated_at",nullable=false,updatable = false)
 	private LocalDateTime updatedAt;
 
+	//fkey
 	@ManyToOne
 	private Task task;
 	
