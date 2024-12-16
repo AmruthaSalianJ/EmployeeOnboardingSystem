@@ -26,7 +26,7 @@ public class Task {
 	
 	
 	//fKey
-	@OneToMany(mappedBy = "tasks", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<WorkFlow> workFlow = new ArrayList<>();
 	
 	
