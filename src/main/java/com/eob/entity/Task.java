@@ -26,24 +26,80 @@ public class Task {
 	
 	
 	//fKey
-	@OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<WorkFlow> workFlow = new ArrayList<>();
+	//@OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	//private List<WorkFlow> workFlow = new ArrayList<>();
 	
 	
 	
 	@Column(name = "task_name",columnDefinition="Text",nullable=false)
-	private String task_name;
+	private String taskName;
 	
 	@Column(name = "assigned_to")
-	private int assigned_to; 
+	private int assignedTo; 
 	
 	@Column(name = "status",columnDefinition="TEXT", nullable=false)
 	private String status;
 	
 	@Column(name="due_date",nullable=false,updatable = false)
-	private LocalDateTime due_date;
+	private LocalDateTime dueDate;
 	
 	@Column(name="completed_at",nullable=false,updatable = false)
-	private LocalDateTime completed_at;
+	private LocalDateTime completedAt;
 
+	public int getTask_id() {
+		return task_id;
+	}
+
+	public void setTask_id(int task_id) {
+		this.task_id = task_id;
+	}
+
+//	public List<WorkFlow> getWorkFlow() {
+//		return workFlow;
+//	}
+//
+//	public void setWorkFlow(List<WorkFlow> workFlow) {
+//		this.workFlow = workFlow;
+//	}
+
+	public String getTaskName() {
+		return taskName;
+	}
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
+
+	public int getAssignedTo() {
+		return assignedTo;
+	}
+
+	public void setAssignedTo(int assignedTo) {
+		this.assignedTo = assignedTo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDateTime getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(LocalDateTime dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public LocalDateTime getCompletedAt() {
+		return completedAt;
+	}
+
+	public void setCompletedAt(LocalDateTime completedAt) {
+		this.completedAt = completedAt;
+	}
+  
 }
