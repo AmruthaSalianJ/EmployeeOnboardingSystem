@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eob.DTO.UserDTO;
-import com.eob.Service.UserService;
+import com.eob.service.UserService;
 
 @RestController
 @RequestMapping("/users")

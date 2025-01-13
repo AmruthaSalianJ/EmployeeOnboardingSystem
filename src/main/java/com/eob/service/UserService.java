@@ -1,4 +1,4 @@
-package com.eob.Service;
+package com.eob.service;
 
 import com.eob.DTO.UserDTO;
 

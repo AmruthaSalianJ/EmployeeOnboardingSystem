@@ -1,45 +1,41 @@
 package com.eob.entity;
+import java.sql.Timestamp;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "Documents")
 public class Document {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "document_id")
-    private Integer documentId;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @Column(name = "document_name", nullable = false)
+    private int documentId;
+    private int userId;
     private String documentName;
-
-    @Column(name = "document_path", nullable = false)
     private String documentPath;
+    private Timestamp uploadedAt;
 
-    @Column(name = "uploaded_at", nullable = false)
-    private LocalDateTime uploadedAt;
+    // Constructor
+    public Document(int documentId, int userId, String documentName, String documentPath, Timestamp uploadedAt) {
+        this.documentId = documentId;
+        this.userId = userId;
+        this.documentName = documentName;
+        this.documentPath = documentPath;
+        this.uploadedAt = uploadedAt;
+    }
 
-    // Getters and Setters
-    public Integer getDocumentId() {
+    public Document(int userId, String documentName, String documentPath) {
+		// TODO Auto-generated constructor stub
+	}
+
+	// Getters and Setters
+    public int getDocumentId() {
         return documentId;
     }
 
-    public void setDocumentId(Integer documentId) {
+    public void setDocumentId(int documentId) {
         this.documentId = documentId;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getDocumentName() {
@@ -58,12 +54,11 @@ public class Document {
         this.documentPath = documentPath;
     }
 
-    public LocalDateTime getUploadedAt() {
+    public Timestamp getUploadedAt() {
         return uploadedAt;
     }
 
-    public void setUploadedAt(LocalDateTime uploadedAt) {
+    public void setUploadedAt(Timestamp uploadedAt) {
         this.uploadedAt = uploadedAt;
     }
 }
-

@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.eob.DTO.UserDTO;
-import com.eob.Repo.UserRepo;
-import com.eob.Service.UserService;
 import com.eob.entity.User;
+import com.eob.repository.UserRepo;
+import com.eob.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

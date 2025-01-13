@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eob.Service.TaskService;
 import com.eob.entity.Task;
+import com.eob.service.TaskService;
 
 @RestController
 @RequestMapping("/tasks")
