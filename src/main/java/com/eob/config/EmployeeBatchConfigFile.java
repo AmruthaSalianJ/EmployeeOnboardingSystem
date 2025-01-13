@@ -10,8 +10,10 @@ import org.springframework.batch.core.partition.PartitionHandler;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.core.partition.support.TaskExecutorPartitionHandler;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.PartitionStepBuilder;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.skip.SkipPolicy;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.data.RepositoryItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
@@ -25,11 +27,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.eob.entity.User;
-
-//import com.example.demo.CustomPartitioner;
-//import com.example.demo.ExceptionSkipPolicy;
-
-
+import com.eob.exception.ExceptionSkipPolicy;
+import com.eob.repository.UserRepo;
+ 
 @Configuration
 @EnableBatchProcessing
 public class EmployeeBatchConfigFile {
@@ -38,18 +38,17 @@ public class EmployeeBatchConfigFile {
 	private String source;
 	
 	@Autowired
-
- productRepository;
+	UserRepo userRepo;
 	
 	// FlatFileItemReader
 	@Bean
-	FlatFileItemReader<User> userReader() {
+	FlatFileItemReader<User> userItemReader() {
 		
-		return new FlatFileItemReaderBuilder<User>().name("userReader")
+		return new FlatFileItemReaderBuilder<User>().name("productItemReader")
 				.resource(new ClassPathResource(source))
 				.linesToSkip(1)
 				.delimited()
-				.names(new String[] {"id","name","price"})
+				.names(new String[] {"userId","username","passwordHash","email"})
 				.fieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
 					setTargetType(User.class);
 				}})
@@ -58,17 +57,17 @@ public class EmployeeBatchConfigFile {
 	
 	
 	@Bean
-	ProductProcessor createItemProcessor()
+	BatchProcessor createItemProcessor()
 	{
-		return new ProductProcessor();
+		return new BatchProcessor();
 	}
 	
 	@Bean
-	RepositoryItemWriter<Product> productWriter()
+	RepositoryItemWriter<User> productWriter()
 	{
-		RepositoryItemWriter<Product> repositoryItemWriter = new RepositoryItemWriter<>();
+		RepositoryItemWriter<User> repositoryItemWriter = new RepositoryItemWriter<>();
 		
-		repositoryItemWriter.setRepository(productRepository);
+		repositoryItemWriter.setRepository(userRepo);
 		repositoryItemWriter.setMethodName("save");
 		return repositoryItemWriter;
 	}
@@ -105,8 +104,8 @@ public class EmployeeBatchConfigFile {
 	Step stepProduct(JobRepository jobRepository, PlatformTransactionManager transactionManager)
 	{
 		var step = new StepBuilder("stepProduct", jobRepository)
-				.<Product,Product>chunk(10,transactionManager)
-				.reader(productItemReader())
+				.<User,User>chunk(10,transactionManager)
+				.reader(userItemReader())
 				.processor(createItemProcessor())
 				.writer(productWriter())
 				.faultTolerant()
@@ -142,10 +141,7 @@ public class EmployeeBatchConfigFile {
 	}
 	
 	
-	@Bean
-	Partitioner partitioner()
-	{
-		return new CustomPartitioner();
-	}
+	/*
+	 * @Bean Partitioner partitioner() { return new CustomPartitioner(); }
+	 */
 }
-
