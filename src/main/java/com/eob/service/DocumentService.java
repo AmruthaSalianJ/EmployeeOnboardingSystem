@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import com.eob.entity.Document;
+import com.eob.entity.User;
 
 public interface DocumentService {
-	Document createDocument(int userId,String documentName,String documentPath );
+	Document createDocument(String documentName,String documentPath );
 	List<Document> getAllDocuments();
-	Optional<Document> getDocumentByID(int Id);
-	List<Document> getDocumentsByUserId(int userID);
-	boolean deleteDocument(int documentId);
+	Optional<Document> getDocumentByID(long Id);
+//	List<Document> getDocumentsByUserId(long userID);
+	boolean deleteDocument(long documentId);
 
 }

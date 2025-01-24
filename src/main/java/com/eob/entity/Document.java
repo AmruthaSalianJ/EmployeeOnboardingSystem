@@ -1,41 +1,63 @@
 package com.eob.entity;
+
 import java.sql.Timestamp;
 
-public class Document {
-    private int documentId;
-    private int userId;
-    private String documentName;
-    private String documentPath;
-    private Timestamp uploadedAt;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
-    // Constructor
-    public Document(int documentId, int userId, String documentName, String documentPath, Timestamp uploadedAt) {
-        this.documentId = documentId;
-        this.userId = userId;
+@Entity
+public class Document {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Column(name = "document_id")
+    private Long documentId; 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    private User user; 
+
+    @Column(name = "document_name", nullable = false)
+    private String documentName; 
+
+    @Column(name = "document_path", nullable = false)
+    private String documentPath; 
+
+    @Column(name = "uploaded_at", nullable = false)
+    private Timestamp uploadedAt; 
+
+   
+    public Document() {}
+
+    
+    public Document( String documentName, String documentPath) {
         this.documentName = documentName;
         this.documentPath = documentPath;
-        this.uploadedAt = uploadedAt;
+        
     }
 
-    public Document(int userId, String documentName, String documentPath) {
-		// TODO Auto-generated constructor stub
-	}
+  
 
-	// Getters and Setters
-    public int getDocumentId() {
+    public Long getDocumentId() {
         return documentId;
     }
 
-    public void setDocumentId(int documentId) {
+    public void setDocumentId(Long documentId) {
         this.documentId = documentId;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDocumentName() {

@@ -11,7 +11,7 @@ import com.eob.entity.Document;
 public interface DocumentRepo extends JpaRepository<Document, Long> {
 
     // Find all documents for a given user ID
-    List<Document> findByUserId(Long userId);
+  //  List<Document> findByUserId(Long userId);
 
     // Find a document by its name
     List<Document> findByDocumentName(String documentName);

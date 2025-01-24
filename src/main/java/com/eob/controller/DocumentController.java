@@ -21,7 +21,6 @@ public class DocumentController {
     @PostMapping
     public ResponseEntity<Document> createDocument(@RequestBody Document document) {
         Document createdDocument = documentService.createDocument(
-                document.getUserId(),
                 document.getDocumentName(),
                 document.getDocumentPath()
         );
@@ -42,10 +41,10 @@ public class DocumentController {
     }
 
     // Get documents by user ID
-    @GetMapping("/user/{userId}")
-    public List<Document> getDocumentsByUserId(@PathVariable int userId) {
-        return documentService.getDocumentsByUserId(userId);
-    }
+//    @GetMapping("/user/{userId}")
+//    public List<Document> getDocumentsByUserId(@PathVariable int userId) {
+//        return documentService.getDocumentsByUserId(userId);
+//    }
 
   
 
