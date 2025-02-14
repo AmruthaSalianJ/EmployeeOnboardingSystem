@@ -1,0 +1,37 @@
+<div class="registration-container">
+    <h2>User Registration</h2>
+  
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">Full Name:</label>
+        <input id="name" formControlName="name" type="text" class="form-control" required />
+        <div *ngIf="registrationForm.get('name')?.touched && registrationForm.get('name')?.invalid" class="error">
+          Name is required.
+        </div>
+      </div>
+  
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email" type="email" class="form-control" required />
+        <div *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.invalid" class="error">
+          Please provide a valid email.
+        </div>
+      </div>
+  
+      <!-- Document Upload Field -->
+      <div class="form-group">
+        <label for="document">Upload Document:</label>
+        <input id="document" formControlName="document" type="file" (change)="onFileChange($event)" class="form-control" required />
+        <div *ngIf="registrationForm.get('document')?.touched && registrationForm.get('document')?.invalid" class="error">
+          Document upload is required.
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="registrationForm.invalid" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  

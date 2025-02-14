@@ -26,11 +26,18 @@ input.form-control {
   font-size: 1em;
 }
 
-input{
+input[type="text"],
+input[type="email"]{
   display: block;
-  margin-bottom: 15px;
+  font-size: 14px;
   padding: 8px;
-  width: 100%;
+  width: 30%;
+}
+input[type="file"]{
+ 
+  font-size: 14px;
+ 
+  width: 20%;
 }
 
 input.form-control:focus {
@@ -42,7 +49,7 @@ button {
   background-color: #00CED1; /* Lighter turquoise */
   color: white;
   border: none;
-  padding: 10px;
+  padding: 12px 20px;
   font-size: 1.2em;
   border-radius: 5px;
   cursor: pointer;
@@ -65,37 +72,25 @@ button:disabled {
   margin-top: 5px;
 }
 
-/* Login Form Container */
-.login-container {
+
+.userregistration-container {
   background-color: white;
   padding: 30px;
-  max-width: 400px;
+  max-width: 600px;
   margin: 50px auto;
   border-radius: 8px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
 
-.login-container form {
-  display: flex;
-  flex-direction: column;
-}
-
-.login-container h2 {
+.userregistration-container h2 {
   color: #008B8B;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
-
-.login-container .form-group {
-  margin-bottom: 25px; /* Added extra spacing between username and password */
-}
-
-
-
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .login-container, .registration-container {
+  .login-container, .userregistration-container {
     width: 90%;
   }
 }
