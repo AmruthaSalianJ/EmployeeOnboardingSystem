@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eob.dto.UserDTO;
 import com.eob.entity.Roles;
 import com.eob.service.RolesService;
 
@@ -23,8 +24,8 @@ public class RolesController {
     private RolesService rolesService;
 
     @PostMapping("/new")
-    public Roles createRole(@RequestBody Roles role) {
-        return rolesService.saveRole(role);
+    public Roles createRole(@RequestBody UserDTO userDTO) {
+        return rolesService.saveRole(userDTO);
     }
 
     @GetMapping

@@ -2,6 +2,7 @@ package com.eob.service;
 
 import java.util.List;
 
+import com.eob.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ public class RolesService {
 	@Autowired
     private RolesRepository rolesRepository;
 
-    public Roles saveRole(Roles role) {
-        return rolesRepository.save(role);
+    public Roles saveRole(UserDTO user) {
+        return null;
     }
 
     public List<Roles> getAllRoles() {

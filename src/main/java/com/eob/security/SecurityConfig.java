@@ -18,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.eob.filter.JwtAuthFilter;
+import com.eob.utils.JwtUtil;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +28,9 @@ public class SecurityConfig  {
 	@Autowired
 	private JwtAuthFilter authFilter;
 	
+	@Autowired
+	JwtUtil jwtUtil;
+	
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return (UserDetailsService) new UsersInfoUserDetailsService();
@@ -34,10 +38,11 @@ public class SecurityConfig  {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
 		return http.csrf().disable()
 				.cors().disable()
 				.authorizeHttpRequests()
-				.requestMatchers("/api/public", "/api/authenticate", "/api/users/roles/new", "/api/roles/new", "/swagger-ui/**", "/**").permitAll()
+				.requestMatchers("/api/public", "/api/authenticate", "/api/users/roles/new", "/api/roles/new", "/swagger-ui/**").permitAll()
 				.and()
 				.authorizeHttpRequests().requestMatchers("/api/users/roles/search/**", "/api/users/roles/find/**").authenticated()
 				.and()

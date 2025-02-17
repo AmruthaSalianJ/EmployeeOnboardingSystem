@@ -3,6 +3,8 @@ package com.eob.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eob.dto.UserDTO;
 import com.eob.entity.Roles;
 import com.eob.entity.Users;
 import com.eob.service.RolesService;
@@ -28,9 +31,9 @@ public class UsersController {
 	@Autowired
 	private RolesService rolesService;
 
-	@PostMapping(value = "/new", consumes = { "application/json;charset=UTF-8" })
-	public Users saveUserWithRole(@RequestBody Users user) {
-		return usersService.saveUserWithRole(user);
+	@PostMapping(value = "/new")
+	public ResponseEntity<?> saveUserWithRole(@RequestBody UserDTO user) {
+		return new ResponseEntity<>(usersService.saveUserWithRole(user), HttpStatus.CREATED);
 	}
 
 	@GetMapping

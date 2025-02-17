@@ -1,40 +1,51 @@
 package com.eob.service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.eob.dto.RoleDTO;
+import com.eob.dto.UserDTO;
+import com.eob.entity.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.eob.entity.Users;
-import com.eob.repository.RolesRepository;
 import com.eob.repository.UsersRepository;
 
 @Service
 public class UsersService {
 
-	
-	
 	@Autowired
 	private UsersRepository usersRepository;
-	
-	@Autowired
-	private RolesRepository rolesRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	/*public UsersService(UsersRepository usersRepository, RolesRepository rolesRepository) {
-		this.usersRepository = usersRepository;
-		this.rolesRepository = rolesRepository;
-	}*/
+	public Users saveUserWithRole(UserDTO userDTO) {
 
-	public Users saveUserWithRole(Users user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setCreated_at(LocalDateTime.now());
-		user.setUpdated_at(LocalDateTime.now());
-		return usersRepository.save(user);
+		Set<RoleDTO> roles = userDTO.getRoles();
+		Set<Roles> setRoles = new HashSet<>();		
+		for (RoleDTO dto : roles) {
+			Roles role = new Roles();
+			role.setRolename(dto.getRolename());
+			String result = String.join(", ", dto.getPermissions());
+			role.setPermissions(result);
+			role.setRolename(dto.getRolename());
+			setRoles.add(role);
+		}
+
+		Users users = new Users();
+		users.setUsername(userDTO.getUsername());
+		users.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		users.setEmail(userDTO.getEmail());
+		users.setRoles(setRoles);
+		users.setCreated_at(LocalDateTime.now());
+		users.setUpdated_at(LocalDateTime.now());
+		return usersRepository.save(users);
+
 	}
 
 	public List<Users> getAllUsers() {
@@ -45,16 +56,15 @@ public class UsersService {
 		return usersRepository.findById(userId).orElse(null);
 	}
 
-	public List<Users> findUserByName(String name){
+	public List<Users> findUserByName(String name) {
 		return usersRepository.findByUsername(name);
 	}
-	
+
 	public Users updateUser(Integer userId, Users userDetails) {
 		Users user = getUserById(userId);
 		if (user != null) {
 			user.setUsername(userDetails.getUsername());
 			user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-			//user.setPassword(userDetails.getPassword());
 			user.setEmail(userDetails.getEmail());
 			user.setRoles(userDetails.getRoles());
 			user.setUpdated_at(LocalDateTime.now());
@@ -62,6 +72,12 @@ public class UsersService {
 		}
 		return null;
 	}
+
+	public void deleteUser(Integer userId) {
+		usersRepository.deleteById(userId);
+	}
+
+}
 
 	public void deleteUser(Integer userId) {
 		usersRepository.deleteById(userId);
